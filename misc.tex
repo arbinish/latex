@@ -1,0 +1,78 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{graphicx}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=4
+}
+\author{Binish A.R}
+\title{Test }
+\begin{document}
+\maketitle
+$$x = \frac{y+z/2}{y^{2}+1}$$
+\begin{tabular}{cccccc}
+0\\
+0&1\\
+0&1&2\\
+0&1&2&3\\
+0&1&2&3&4\\
+0&1&2&3&4&5\\
+0&1&2&3&4\\
+0&1&2&3\\
+0&1&2\\
+0&1\\
+0\\
+\end{tabular}
+
+\begin{lstlisting}
+import re
+import sys
+from fractions import Fraction
+
+HOUR = 30
+MINUTE = 6
+
+_time = raw_input('Enter time (HH:MM): ')
+if not re.match(r'\d+:\d+$', _time):
+    sys.stderr.write('incorrect input: {0}'.format(_time))
+    sys.exit(1)
+
+hour, minute = [int(i) for i in _time.split(':')]
+if 23 < hour < 0 or 59 < minute < 0:
+    sys.stderr.write('invalid time: {0}'.format(_time))
+    sys.exit(2)
+
+if hour > 12:
+    hour -= 12
+
+# angle traced by hour hand
+
+angle_hour = (hour + (minute / 60.0)) * HOUR
+angle_minute = (minute * MINUTE)
+
+print Fraction(360 - (angle_hour - angle_minute))
+\end{lstlisting}
+
+\end{document}
